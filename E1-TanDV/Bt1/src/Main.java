@@ -48,7 +48,6 @@ public class Main {
         // Tổng số tờ tiền
         int totalNotes = num500k + num200k + num100k + num50k;
 
-        // Hiển thị kết quả với căn chỉnh
         System.out.printf("| %-10s | %-6s | %-6s | %-6s | %-5s | %-10s |%n", "X", "Tờ 500", "Tờ 200", "Tờ 100", "Tờ 50", "Tổng số tờ");
         System.out.printf("| %-10d | %-6d | %-6d | %-6d | %-5d | %-10d |%n", totalMoney, num500k, num200k, num100k, num50k, totalNotes);
         
