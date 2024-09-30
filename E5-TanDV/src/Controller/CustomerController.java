@@ -13,7 +13,7 @@ public class CustomerController {
         CustomerController.customers = customers;
     }
 
-    public List<Customer> SortCustomerByName() {
+    public List<Customer> sortCustomerByName() {
         List<Customer> sortByName = customers.stream()
                 .sorted(Comparator.comparing(Customer::getName))
                 .collect(Collectors.toList());

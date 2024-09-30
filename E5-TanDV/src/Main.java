@@ -28,7 +28,7 @@ public class Main {
         accounts.add(new Account(3, customers.get(2), 3355.16));
         accounts.add(new Account(4, customers.get(3), 4020.15));
 
-        invoices.add(new Invoice(1, customers.get(0), 150.0, LocalDate.of(2024, 3, 4)));
+        invoices.add(new Invoice(1, customers.get(0), 3000.0, LocalDate.of(2024, 3, 4)));
         invoices.add(new Invoice(2, customers.get(1), 300.0, LocalDate.of(2024, 1, 3)));
         invoices.add(new Invoice(3, customers.get(2), 450.0, LocalDate.of(2023, 9, 22)));
         invoices.add(new Invoice(4, customers.get(3), 500.0, LocalDate.of(2023, 7, 26)));
@@ -47,15 +47,15 @@ public class Main {
                 System.out.println("a.Sort by name - b.Sort by Account - c.Sort by invoice");
                 choice = scanner.next().toLowerCase().charAt(0);
                 if(choice == 'a') {
-                    List<Customer> sortByName = cc.SortCustomerByName();
+                    List<Customer> sortByName = cc.sortCustomerByName();
                     System.out.println(sortByName);
                 }
                 if(choice == 'b') {
-                    List<Account> sortByAccount = ac.SortCustomerByAccount();
+                    List<Account> sortByAccount = ac.sortCustomerByAccount();
                     System.out.println(sortByAccount);
                 }
                 if(choice == 'c') {
-                    List<Invoice> sortByInvoice = ic.SortCustomerByInvoice();
+                    List<Invoice> sortByInvoice = ic.sortCustomerByInvoice();
                     System.out.println(sortByInvoice);
                 }
                 break;
@@ -68,12 +68,12 @@ public class Main {
                     if(choice == 'a') {
                         System.out.println("Enter your name:");
                         String name = scanner.next();
-                        List<Account> searchByName = ac.SearchAccountByName(name);
+                        List<Account> searchByName = ac.searchAccountByName(name);
                         System.out.println(searchByName);
                     } else if (choice == 'b') {
                         System.out.println("Enter your account id:");
                         int id = scanner.nextInt();
-                        Optional<Account> searchById = ac.SearchAccountById(id);
+                        Optional<Account> searchById = ac.searchAccountById(id);
                         System.out.println(searchById);
                     }
                 } else if(choice == 'b') {
@@ -82,12 +82,12 @@ public class Main {
                     if(choice == 'a') {
                         System.out.println("Enter your name:");
                         String name = scanner.next();
-                        List<Invoice> searchByName = ic.SearchInvoiceByName(name);
+                        List<Invoice> searchByName = ic.searchInvoiceByName(name);
                         System.out.println(searchByName);
                     } else if (choice == 'b') {
                         System.out.println("Enter your invoice id:");
                         int id = scanner.nextInt();
-                        Optional<Invoice> searchById = ic.SearchInvoiceById(id);
+                        Optional<Invoice> searchById = ic.searchInvoiceById(id);
                         System.out.println(searchById);
                     } else {
                         System.out.println("Invalid choice!");
@@ -95,7 +95,82 @@ public class Main {
                 }
                 break;
             case 'd':
+                invoices.stream().forEach(invoice -> {
+                    int customerId = invoice.getCustomerId();
+                    double amountAfterDiscount = invoice.getAmountAfterDiscount();
 
+                    accounts.stream()
+                            .filter(account -> account.getCustomer().getId() == customerId)
+                            .findFirst()
+                            .ifPresent(account -> {
+                                double accountBalance = account.getBalance();
+                                double newBalance = accountBalance - amountAfterDiscount;
+                                if(newBalance > 0) {
+                                    System.out.println("Customer: " + account.getCustomerName());
+                                    System.out.println("Invoice ID: " + invoice.getId());
+                                    System.out.println("Account ID: " + account.getId());
+                                    System.out.println("Amount after discount: " + amountAfterDiscount);
+                                    System.out.println("New account balance: " + newBalance);
+                                }
+                            });
+                });
+                break;
+            case 'e':
+                invoices.stream().forEach(invoice -> {
+                    int customerId = invoice.getCustomerId();
+                    double invoiceAmount = invoice.getAmount();
+
+                    accounts.stream()
+                            .filter(account -> account.getCustomer().getId() == customerId)
+                            .findFirst()
+                            .ifPresent(account -> {
+                                double accountBalance = account.getBalance();
+                                double newBalance = accountBalance - invoiceAmount;
+                                if(newBalance < 0) {
+                                    System.out.println("Customer: " + account.getCustomerName());
+                                    System.out.println("Invoice ID: " + invoice.getId());
+                                    System.out.println("Account ID: " + account.getId());
+                                    System.out.println("Amount: " + invoiceAmount);
+                                    System.out.println("New account balance: " + newBalance);
+                                }
+                            });
+                });
+                break;
+            case 'f':
+//                invoices.stream().forEach(invoice -> {
+//                    int customerId = invoice.getCustomerId();
+//                    double originalInvoiceAmount = invoice.getAmountAfterDiscount();
+//                    int dateTimeInvalid = LocalDate.now().getYear() - invoice.getDateTime().getYear();
+//
+//                    // Kiểm tra điều kiện giảm giá
+//                    Customer customer = customers.stream()
+//                            .filter(c -> c.getId() == customerId)
+//                            .findFirst()
+//                            .orElse(null);
+//
+//                    // Tính toán số tiền hóa đơn đã giảm giá
+//                    double invoiceAmount = originalInvoiceAmount; // Sử dụng giá trị gốc
+//                    if (customer != null && customer.getGender() == 'F' && dateTimeInvalid == 1) {
+//                        invoiceAmount *= 0.9; // Giảm 10% nếu đủ điều kiện
+//                    }
+//
+//                    accounts.stream()
+//                            .filter(account -> account.getCustomer().getId() == customerId)
+//                            .findFirst()
+//                            .ifPresent(account -> {
+//                                double accountBalance = account.getBalance();
+//
+//                                // Kiểm tra số dư tài khoản
+//                                if (accountBalance >= invoiceAmount) {
+//                                    System.out.println("Customer: " + account.getCustomerName());
+//                                    System.out.println("Invoice ID: " + invoice.getId());
+//                                    System.out.println("Account ID: " + account.getId());
+//                                    System.out.println("Amount after discount: " + invoiceAmount);
+//                                    System.out.println("New account balance: " + (accountBalance - invoiceAmount));
+//                                }
+//                            });
+//                });
+                break;
             default:
                 System.out.println("Invalid choice!");
                 break;

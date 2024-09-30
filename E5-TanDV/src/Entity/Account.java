@@ -38,7 +38,6 @@ public class Account {
         return customer.getName();
     }
 
-    // thêm số tiền vào số dư
     public Account deposit(double amount) {
         if (amount > 0) {
             this.balance += amount;

@@ -13,14 +13,14 @@ public class AccountController {
         this.accounts = accounts;
     }
 
-    public List<Account> SortCustomerByAccount() {
+    public List<Account> sortCustomerByAccount() {
         List<Account> sortByAccount = accounts.stream()
                 .sorted(Comparator.comparing(Account::getBalance))
                 .collect(Collectors.toList());
         return sortByAccount;
     }
 
-    public Optional<Account> SearchAccountById(int id) {
+    public Optional<Account> searchAccountById(int id) {
         Optional<Account> searchById = accounts.stream()
                 .filter(account -> account.getId() == id)
                 .findFirst();
@@ -31,7 +31,7 @@ public class AccountController {
         return searchById;
     }
 
-    public List<Account> SearchAccountByName(String name) {
+    public List<Account> searchAccountByName(String name) {
         List<Account> searchByName = accounts.stream()
                 .filter(account -> account.getCustomerName().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());

@@ -14,14 +14,14 @@ public class InvoiceController {
         InvoiceController.invoices = invoices;
     }
 
-    public static List<Invoice> SortCustomerByInvoice() {
+    public static List<Invoice> sortCustomerByInvoice() {
         List<Invoice> sortByInvoice = invoices.stream()
                 .sorted(Comparator.comparing(Invoice::getAmount))
                 .collect(Collectors.toList());
         return sortByInvoice;
     }
 
-    public static Optional<Invoice> SearchInvoiceById(int id) {
+    public static Optional<Invoice> searchInvoiceById(int id) {
         Optional<Invoice> searchById = invoices.stream()
                 .filter(invoice -> invoice.getId() == id)
                 .findFirst();
@@ -32,7 +32,7 @@ public class InvoiceController {
         return searchById;
     }
 
-    public static List<Invoice> SearchInvoiceByName(String name) {
+    public static List<Invoice> searchInvoiceByName(String name) {
         List<Invoice> searchByName = invoices.stream()
                 .filter(invoice -> invoice.getCustomerName().toLowerCase().equals(name.toLowerCase()))
                 .collect(Collectors.toList());
