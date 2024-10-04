@@ -94,29 +94,29 @@ public class Main {
                     }
                 }
                 break;
-            case 'd':
-                invoices.stream().forEach(invoice -> {
-                    int customerId = invoice.getCustomerId();
-                    double amountAfterDiscount = invoice.getAmountAfterDiscount();
+            case 'd':invoices.forEach(invoice -> {
+                int customerId = invoice.getCustomerId();
+                double amountAfterDiscount = invoice.getAmountAfterDiscount();
 
-                    accounts.stream()
-                            .filter(account -> account.getCustomer().getId() == customerId)
-                            .findFirst()
-                            .ifPresent(account -> {
-                                double accountBalance = account.getBalance();
-                                double newBalance = accountBalance - amountAfterDiscount;
-                                if(newBalance > 0) {
-                                    System.out.println("Customer: " + account.getCustomerName());
-                                    System.out.println("Invoice ID: " + invoice.getId());
-                                    System.out.println("Account ID: " + account.getId());
-                                    System.out.println("Amount after discount: " + amountAfterDiscount);
-                                    System.out.println("New account balance: " + newBalance);
-                                }
-                            });
-                });
+                accounts.stream()
+                        .filter(account -> account.getCustomer().getId() == customerId)
+                        .findFirst()
+                        .ifPresent(account -> {
+                            double accountBalance = account.getBalance();
+                            double newBalance = accountBalance - amountAfterDiscount;
+                            if(newBalance > 0) {
+                                System.out.println("Customer: " + account.getCustomerName());
+                                System.out.println("Invoice ID: " + invoice.getId());
+                                System.out.println("Account ID: " + account.getId());
+                                System.out.println("Amount after discount: " + amountAfterDiscount);
+                                System.out.println("New account balance: " + newBalance);
+                            }
+                        });
+            });
                 break;
+
             case 'e':
-                invoices.stream().forEach(invoice -> {
+                invoices.forEach(invoice -> {
                     int customerId = invoice.getCustomerId();
                     double invoiceAmount = invoice.getAmount();
 
@@ -137,21 +137,19 @@ public class Main {
                 });
                 break;
             case 'f':
-//                invoices.stream().forEach(invoice -> {
+//                invoices.forEach(invoice -> {
 //                    int customerId = invoice.getCustomerId();
 //                    double originalInvoiceAmount = invoice.getAmountAfterDiscount();
 //                    int dateTimeInvalid = LocalDate.now().getYear() - invoice.getDateTime().getYear();
 //
-//                    // Kiểm tra điều kiện giảm giá
 //                    Customer customer = customers.stream()
 //                            .filter(c -> c.getId() == customerId)
 //                            .findFirst()
 //                            .orElse(null);
 //
-//                    // Tính toán số tiền hóa đơn đã giảm giá
-//                    double invoiceAmount = originalInvoiceAmount; // Sử dụng giá trị gốc
-//                    if (customer != null && customer.getGender() == 'F' && dateTimeInvalid == 1) {
-//                        invoiceAmount *= 0.9; // Giảm 10% nếu đủ điều kiện
+//                    double invoiceAmount = originalInvoiceAmount;
+//                    if (customer != null && customer.getGender() == 'F' && dateTimeInvalid >= 1) {
+//                        invoiceAmount *= 0.9;
 //                    }
 //
 //                    accounts.stream()
@@ -160,7 +158,6 @@ public class Main {
 //                            .ifPresent(account -> {
 //                                double accountBalance = account.getBalance();
 //
-//                                // Kiểm tra số dư tài khoản
 //                                if (accountBalance >= invoiceAmount) {
 //                                    System.out.println("Customer: " + account.getCustomerName());
 //                                    System.out.println("Invoice ID: " + invoice.getId());
