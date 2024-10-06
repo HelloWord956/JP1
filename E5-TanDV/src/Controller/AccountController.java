@@ -1,6 +1,7 @@
 package Controller;
 
 import Entity.Account;
+import Service.AccountService;
 
 import java.util.Comparator;
 import java.util.List;
@@ -9,36 +10,29 @@ import java.util.stream.Collectors;
 
 public class AccountController {
     private List<Account> accounts;
-    public AccountController(List<Account> accounts) {
-        this.accounts = accounts;
+    private AccountService as;
+
+    public AccountController(AccountService as) {
+        this.as = as;
     }
 
-    public List<Account> sortCustomerByAccount() {
-        List<Account> sortByAccount = accounts.stream()
-                .sorted(Comparator.comparing(Account::getBalance))
-                .collect(Collectors.toList());
-        return sortByAccount;
+    public List<Account> sortCustomer() {
+        List<Account> accounts1 = as.sortCustomer();
+        return accounts1;
     }
 
-    public Optional<Account> searchAccountById(int id) {
-        Optional<Account> searchById = accounts.stream()
-                .filter(account -> account.getId() == id)
-                .findFirst();
+    public Account getById(int id) {
+        Account account = as.getById(id);
 
-        if(searchById.isEmpty()) {
-            System.out.println("Not found!");
+        if(account != null) {
+            return account;
         }
-        return searchById;
+
+        return null;
     }
 
-    public List<Account> searchAccountByName(String name) {
-        List<Account> searchByName = accounts.stream()
-                .filter(account -> account.getCustomerName().toLowerCase().contains(name.toLowerCase()))
-                .collect(Collectors.toList());
-
-        if(searchByName.isEmpty()) {
-            System.out.println("Not found!");
-        }
-        return searchByName;
+    public List<Account> getByName(String name) {
+        List<Account> accounts1 = as.getByName(name);
+        return accounts1;
     }
 }

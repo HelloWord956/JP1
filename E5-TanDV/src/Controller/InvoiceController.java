@@ -1,6 +1,7 @@
 package Controller;
 
 import Entity.Invoice;
+import Service.InvoiceService;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,36 +11,28 @@ import java.util.stream.Collectors;
 
 public class InvoiceController {
     public static List<Invoice> invoices;
-    public InvoiceController(List<Invoice> invoices) {
-        InvoiceController.invoices = invoices;
+    private InvoiceService is;
+
+    public InvoiceController(InvoiceService is) {
+        this.is = is;
     }
 
-    public static List<Invoice> sortCustomerByInvoice() {
-        List<Invoice> sortByInvoice = invoices.stream()
-                .sorted(Comparator.comparing(Invoice::getAmount))
-                .collect(Collectors.toList());
-        return sortByInvoice;
+    public List<Invoice> sortCustomer() {
+        List<Invoice> invoices1 = is.sortCustomer();
+        return invoices1;
     }
 
-    public static Optional<Invoice> searchInvoiceById(int id) {
-        Optional<Invoice> searchById = invoices.stream()
-                .filter(invoice -> invoice.getId() == id)
-                .findFirst();
+    public Invoice getById(int id) {
+        Invoice invoice = is.getById(id);
 
-        if(searchById.isEmpty()) {
-            System.out.println("Not found!");
+        if(invoice != null) {
+            return invoice;
         }
-        return searchById;
+        return null;
     }
 
-    public static List<Invoice> searchInvoiceByName(String name) {
-        List<Invoice> searchByName = invoices.stream()
-                .filter(invoice -> invoice.getCustomerName().toLowerCase().equals(name.toLowerCase()))
-                .collect(Collectors.toList());
-
-        if (searchByName.isEmpty()) {
-            System.out.println("Not found!");
-        }
-        return searchByName;
+    public List<Invoice> getByName(String name) {
+        List<Invoice> invoices1 = is.getByName(name);
+        return invoices1;
     }
 }

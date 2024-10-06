@@ -4,6 +4,9 @@ import Controller.InvoiceController;
 import Entity.Account;
 import Entity.Customer;
 import Entity.Invoice;
+import Service.AccountService;
+import Service.CustomerService;
+import Service.InvoiceService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,9 +16,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        List<Customer> customers = new ArrayList<>();
-        List<Account> accounts = new ArrayList<>();
-        List<Invoice> invoices = new ArrayList<>();
+        List<Customer> customers = new ArrayList<Customer>();
+        List<Account> accounts = new ArrayList<Account>();
+        List<Invoice> invoices = new ArrayList<Invoice>();
 
         customers.add(new Customer(1, "Alice", 'F', 10));
         customers.add(new Customer(2, "Bob", 'M', 15));
@@ -36,9 +39,13 @@ public class Main {
         System.out.println("Enter your choice(b - c - d - e - f):");
 
         Scanner scanner = new Scanner(System.in);
-        CustomerController cc = new CustomerController(customers);
-        AccountController ac = new AccountController(accounts);
-        InvoiceController ic = new InvoiceController(invoices);
+        CustomerService cs = new CustomerService(customers);
+        AccountService ac = new AccountService(accounts);
+        InvoiceService is = new InvoiceService(invoices);
+
+        CustomerController customerController = new CustomerController(cs);
+        AccountController accountController = new AccountController(ac);
+        InvoiceController invoiceController = new InvoiceController(is);
 
         char choice = scanner.next().toLowerCase().charAt(0);
 
@@ -47,16 +54,16 @@ public class Main {
                 System.out.println("a.Sort by name - b.Sort by Account - c.Sort by invoice");
                 choice = scanner.next().toLowerCase().charAt(0);
                 if(choice == 'a') {
-                    List<Customer> sortByName = cc.sortCustomerByName();
-                    System.out.println(sortByName);
+                    List<Customer> cus = customerController.sortCustomerByName();
+                    System.out.println(cus);
                 }
                 if(choice == 'b') {
-                    List<Account> sortByAccount = ac.sortCustomerByAccount();
-                    System.out.println(sortByAccount);
+                    List<Account> accountList = accountController.sortCustomer();
+                    System.out.println(accountList);
                 }
                 if(choice == 'c') {
-                    List<Invoice> sortByInvoice = ic.sortCustomerByInvoice();
-                    System.out.println(sortByInvoice);
+                    List<Invoice> invoiceList = invoiceController.sortCustomer();
+                    System.out.println(invoiceList);
                 }
                 break;
             case 'c':
@@ -68,13 +75,13 @@ public class Main {
                     if(choice == 'a') {
                         System.out.println("Enter your name:");
                         String name = scanner.next();
-                        List<Account> searchByName = ac.searchAccountByName(name);
-                        System.out.println(searchByName);
+                        List<Account> accountList = accountController.getByName(name);
+                        System.out.println(accountList);
                     } else if (choice == 'b') {
                         System.out.println("Enter your account id:");
                         int id = scanner.nextInt();
-                        Optional<Account> searchById = ac.searchAccountById(id);
-                        System.out.println(searchById);
+                        Account acc = accountController.getById(id);
+                        System.out.println(acc);
                     }
                 } else if(choice == 'b') {
                     System.out.println("a.Find by name - b.Find by id");
@@ -82,13 +89,13 @@ public class Main {
                     if(choice == 'a') {
                         System.out.println("Enter your name:");
                         String name = scanner.next();
-                        List<Invoice> searchByName = ic.searchInvoiceByName(name);
-                        System.out.println(searchByName);
+                        List<Invoice> invoiceList = invoiceController.getByName(name);
+                        System.out.println(invoiceList);
                     } else if (choice == 'b') {
                         System.out.println("Enter your invoice id:");
                         int id = scanner.nextInt();
-                        Optional<Invoice> searchById = ic.searchInvoiceById(id);
-                        System.out.println(searchById);
+                        Invoice invoice = invoiceController.getById(id);
+                        System.out.println(invoice);
                     } else {
                         System.out.println("Invalid choice!");
                     }
