@@ -34,14 +34,14 @@ public class Main {
         invoices.add(new Invoice(1, customers.get(0), 3000.0, LocalDate.of(2024, 3, 4)));
         invoices.add(new Invoice(2, customers.get(1), 300.0, LocalDate.of(2024, 1, 3)));
         invoices.add(new Invoice(3, customers.get(2), 450.0, LocalDate.of(2023, 9, 22)));
-        invoices.add(new Invoice(4, customers.get(3), 500.0, LocalDate.of(2023, 7, 26)));
+        invoices.add(new Invoice(4, customers.get(3), 500.0, LocalDate.of(2023, 8, 26)));
 
         System.out.println("Enter your choice(b - c - d - e - f):");
 
         Scanner scanner = new Scanner(System.in);
         CustomerService cs = new CustomerService(customers);
         AccountService ac = new AccountService(accounts);
-        InvoiceService is = new InvoiceService(invoices);
+        InvoiceService is = new InvoiceService(invoices, customers);
 
         CustomerController customerController = new CustomerController(cs);
         AccountController accountController = new AccountController(ac);
@@ -144,36 +144,8 @@ public class Main {
                 });
                 break;
             case 'f':
-//                invoices.forEach(invoice -> {
-//                    int customerId = invoice.getCustomerId();
-//                    double originalInvoiceAmount = invoice.getAmountAfterDiscount();
-//                    int dateTimeInvalid = LocalDate.now().getYear() - invoice.getDateTime().getYear();
-//
-//                    Customer customer = customers.stream()
-//                            .filter(c -> c.getId() == customerId)
-//                            .findFirst()
-//                            .orElse(null);
-//
-//                    double invoiceAmount = originalInvoiceAmount;
-//                    if (customer != null && customer.getGender() == 'F' && dateTimeInvalid >= 1) {
-//                        invoiceAmount *= 0.9;
-//                    }
-//
-//                    accounts.stream()
-//                            .filter(account -> account.getCustomer().getId() == customerId)
-//                            .findFirst()
-//                            .ifPresent(account -> {
-//                                double accountBalance = account.getBalance();
-//
-//                                if (accountBalance >= invoiceAmount) {
-//                                    System.out.println("Customer: " + account.getCustomerName());
-//                                    System.out.println("Invoice ID: " + invoice.getId());
-//                                    System.out.println("Account ID: " + account.getId());
-//                                    System.out.println("Amount after discount: " + invoiceAmount);
-//                                    System.out.println("New account balance: " + (accountBalance - invoiceAmount));
-//                                }
-//                            });
-//                });
+                invoiceController.invoiceDiscountForFemale();
+                System.out.println(invoices);
                 break;
             default:
                 System.out.println("Invalid choice!");

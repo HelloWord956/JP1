@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class AccountService implements IGeneral {
+public class AccountService implements IGeneral<Account> {
     private List<Account> accounts;
     public AccountService(List<Account> accounts) {
         this.accounts = accounts;

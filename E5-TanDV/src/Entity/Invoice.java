@@ -64,12 +64,12 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return "Invoice[" +
+        return "Invoice{" +
                 "id=" + id +
                 ", customer=" + customer +
                 "(" + customer.getDiscount() + "%" + ")" +
                 ", amount=" + amount +
                 ", dateTime=" + dateTime +
-                ']';
+                '}' + "\n";
     }
 }

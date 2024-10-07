@@ -35,4 +35,8 @@ public class InvoiceController {
         List<Invoice> invoices1 = is.getByName(name);
         return invoices1;
     }
+
+    public void invoiceDiscountForFemale() {
+        is.invoiceDiscountForFemale();
+    }
 }
