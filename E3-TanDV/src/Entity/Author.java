@@ -29,7 +29,7 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Author[" +
+        return "[" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", gender=" + gender +
