@@ -1,18 +1,18 @@
 package Entity;
 
 public enum OrderStatus {
-    PENDING("Chờ xử lý"),
-    COMPLETED("Đã hoàn thành"),
-    CANCEL("Hủy"),
-    PAID("Đã thanh toán");
+    PENDING("Pending"),
+    COMPLETED("Completed"),
+    CANCEL("Cancelled"),
+    PAID("Paid");
 
-    private String description;
+    private final String labelStatus;
 
-    OrderStatus(String description) {
-        this.description = description;
+    private OrderStatus(String labelStatus) {
+        this.labelStatus = labelStatus;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLabelStatus() {
+        return labelStatus;
     }
 }

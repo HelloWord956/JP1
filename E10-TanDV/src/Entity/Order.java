@@ -1,49 +1,62 @@
 package Entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Order {
-    private String  id;
-    private int cus_id;
-    private LocalDate datetime;
+    private int id;
+    private String code;
+    private Customer customer;
+    private LocalDateTime orderDate;
 
     public Order(){;}
-    public Order(String  id, int cus_id, LocalDate datetime) {
+
+    public Order(int id, String code, Customer customer, LocalDateTime orderDate) {
         this.id = id;
-        this.cus_id = cus_id;
-        this.datetime = datetime;
+        this.code = code;
+        this.customer = customer;
+        this.orderDate = orderDate;
     }
 
-    public String  getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String  id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getCus_id() {
-        return cus_id;
+    public String getCode() {
+        return code;
     }
 
-    public void setCus_id(int cus_id) {
-        this.cus_id = cus_id;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public LocalDate getDatetime() {
-        return datetime;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setDatetime(LocalDate datetime) {
-        this.datetime = datetime;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", cus_id=" + cus_id +
-                ", datetime=" + datetime +
+                ", code='" + code + '\'' +
+                ", customer=" + customer +
+                ", orderDate=" + orderDate +
                 '}';
     }
 }
